@@ -3,7 +3,6 @@ from os.path import isfile, join, getmtime, splitext
 from datetime import datetime
 
 user = (getlogin())
-user = "RDO"
 
 extensions = [".7z",
               ".zap13",

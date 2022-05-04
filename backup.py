@@ -1,6 +1,7 @@
 from os import listdir, getcwd, system, getlogin
 from os.path import isfile, join, getmtime, splitext
 from datetime import datetime
+from time import ctime
 
 # Función para comprobar si el nombre del archivo ya tiene la fecha incluida
 def TieneFecha(str):
@@ -45,8 +46,14 @@ for file in files:
     if extension in extensions:
         
         if not TieneFecha(name):
+            # Obtener fecha modificación
             date = (getmtime(file))
-            date = datetime.utcfromtimestamp(date).strftime('%Y%m%d_%H%M')
+            # Pasar de epoch a localtime
+            date = ctime(date)
+            # Pasar el local time a una variable de tipo datetime de la librería datetime
+            date = datetime.strptime(date, '%c')
+            # Dar formato a la fecha
+            date = date.strftime('%Y%m%d_%H%M')
             new_file = 'OLD\\'+name + "_" + date + extension
         else:
             new_file = 'OLD\\'+name + extension
